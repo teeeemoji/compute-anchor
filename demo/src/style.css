@@ -1,0 +1,98 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+h1, h2, h3, h4, p {
+    margin: 0;
+    padding: 0;
+}
+
+.compute-anchor-demo-information {
+    text-align: center;
+    background-color: #F6C342;
+    color: #fff;
+    font-weight: bold;
+    padding: 50px 20px;
+}
+
+.compute-anchor-demo-information .title {
+    height: 120px;
+    line-height: 120px;
+    font-size: 70px;
+}
+
+.compute-anchor-demo-information .sub-title {
+    font-style: italic;
+    margin-top: 12px;
+}
+
+.compute-anchor-demo-information .description {
+    margin-top: 20px;
+}
+
+.examples-ctn {
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.example-item {
+    display: inline-block;
+    width: 30%;
+    vertical-align: top;
+}
+
+.fixed-top {
+    position: sticky;
+    top: 0;
+    padding: 0 12px;
+    color: #fff;
+    background-color: #407AFC;
+    overflow: hidden;
+}
+
+.fixed-top .label, .fixed-top .anchor-name {
+    height: 50px;
+    line-height: 50px;
+}
+
+.fixed-top .label {
+    float: left;
+}
+
+.fixed-top .anchor-name {
+    float: right;
+}
+
+.element-example-wrapper,
+.offset-example-wrapper,
+.window-example-wrapper {
+    border: 1px solid #999;
+}
+
+.element-example-wrapper, .offset-example-wrapper {
+    overflow-y: auto;
+}
+
+.dispose-btn {
+    border: 1px solid #fff;
+    box-shadow: none;
+    border-radius: 0;
+    height: 30px;
+    padding: 0 12px;
+    background: transparent;
+    color: #fff;
+}
+
+.dispose-btn:hover {
+    background: #f1f1f1;
+    color: #407AFC;
+}
+
+.dispose-btn:active {
+    background-color: #fff;
+    color: #407AFC;
+}
+
