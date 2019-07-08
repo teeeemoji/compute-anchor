@@ -23,6 +23,9 @@ export default [
         namedExports: {
           "node_modules/lodash/debounce.js": ["debounce"]
         }
+      }),
+      babel({
+        babelrc: true
       })
     ]
   },

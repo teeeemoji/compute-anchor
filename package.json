@@ -30,6 +30,7 @@
   },
   "homepage": "https://github.com/teeeemoji/compute-anchor#readme",
   "dependencies": {
+    "@babel/plugin-transform-parameters": "^7.4.4",
     "lodash": "^4.17.11"
   },
   "lint-staged": {
