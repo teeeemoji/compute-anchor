@@ -1,6 +1,6 @@
 {
   "name": "compute-anchor",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "compute anchor in element",
   "main": "index.js",
   "scripts": {
