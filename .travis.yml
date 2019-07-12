@@ -1,0 +1,29 @@
+language: node_js
+node_js:
+  - "7"
+  - "8"
+  - "9"
+dist: trusty
+sudo: false
+
+branches:
+  only:
+    - gh-pages
+
+cache:
+  directories:
+    - node_modules
+
+install:
+  - npm install
+
+script:
+  - npm run build:demo
+
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN
+  keep_history: true
+  on:
+    branch: gh-pages
