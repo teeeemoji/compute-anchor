@@ -8,8 +8,8 @@ export default class WindowExample extends React.Component {
   }
 
   state = {
-    currentAnchor: "",
-    dispose: null
+    currentAnchor: "window-1",
+    computeObj: null
   };
 
   contentList = mockData("window");
@@ -20,7 +20,8 @@ export default class WindowExample extends React.Component {
 
   register() {
     this.setState({
-      dispose: computeAnchor({
+      computeObj: computeAnchor({
+        defaultAnchor: "window-1",
         anchors: this.contentList.map(i => i.anchor),
         callback: anchor => {
           this.setState({ currentAnchor: anchor });
@@ -30,8 +31,8 @@ export default class WindowExample extends React.Component {
   }
 
   render() {
-    let btnName = this.state.dispose ? "Dispose" : "Register";
-    let labelName = this.state.dispose
+    let btnName = this.state.computeObj ? "Dispose" : "Register";
+    let labelName = this.state.computeObj
       ? "listening window.scroll:"
       : "disposed";
     return (
@@ -41,10 +42,10 @@ export default class WindowExample extends React.Component {
             <button
               className="dispose-btn"
               onClick={() => {
-                if (this.state.dispose) {
-                  this.state.dispose();
+                if (this.state.computeObj) {
+                  this.state.computeObj.dispose();
                   this.setState({
-                    dispose: null
+                    computeObj: null
                   });
                 } else {
                   this.register();

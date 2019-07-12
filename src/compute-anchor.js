@@ -1,11 +1,21 @@
-import { initOptions, makeHandler, listen, dispose } from "./utils";
+import {
+  initOptions,
+  makeHandler,
+  makeHandlerDebounced,
+  listen,
+  dispose
+} from "./utils";
 
 function computeAnchor(options) {
   let opt = initOptions(options);
   let scrollHandler = makeHandler(opt);
-  listen(opt, scrollHandler);
-  return function() {
-    dispose(opt, scrollHandler);
+  let debounceHandler = makeHandlerDebounced(scrollHandler, options);
+  listen(opt, debounceHandler);
+  return {
+    compute: scrollHandler,
+    dispose: function() {
+      dispose(opt, debounceHandler);
+    }
   };
 }
 

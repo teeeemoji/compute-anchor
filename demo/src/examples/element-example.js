@@ -10,7 +10,7 @@ export default class ElementExample extends React.Component {
 
   state = {
     currentAnchor: "",
-    dispose: null
+    computeObj: null
   };
 
   ref;
@@ -21,12 +21,12 @@ export default class ElementExample extends React.Component {
   }
 
   componentWillUnmount() {
-    this.state.dispose();
+    this.state.computeObj();
   }
 
   register() {
     this.setState({
-      dispose: computeAnchor({
+      computeObj: computeAnchor({
         element: ReactDOM.findDOMNode(this.ref),
         anchors: this.contentList.map(i => i.anchor),
         callback: anchor => {
@@ -37,8 +37,8 @@ export default class ElementExample extends React.Component {
   }
 
   render() {
-    let btnName = this.state.dispose ? "Dispose" : "Register";
-    let labelName = this.state.dispose ? "listening div.wheel:" : "disposed";
+    let btnName = this.state.computeObj ? "Dispose" : "Register";
+    let labelName = this.state.computeObj ? "listening div.wheel:" : "disposed";
     return (
       <div
         className="element-example-wrapper"
@@ -50,10 +50,10 @@ export default class ElementExample extends React.Component {
             <button
               className="dispose-btn"
               onClick={() => {
-                if (this.state.dispose) {
-                  this.state.dispose();
+                if (this.state.computeObj) {
+                  this.state.computeObj.dispose();
                   this.setState({
-                    dispose: null
+                    computeObj: null
                   });
                 } else {
                   this.register();

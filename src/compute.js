@@ -35,7 +35,7 @@ function getOffsetTopAndHeight(container, element, offsetTop = 0) {
 
 function getDetermineLine(options, anchorsInfo) {
   if (!anchorsInfo.length) {
-    return 0;
+    return 1;
   }
   const { offset, element } = options;
   const lastItem = anchorsInfo[anchorsInfo.length - 1];
@@ -43,7 +43,7 @@ function getDetermineLine(options, anchorsInfo) {
   const containerVisibleHeight = containerHeight - offset.top - offset.bottom;
 
   if (lastItem.top >= containerVisibleHeight) {
-    return 0;
+    return 1;
   } else {
     const lastItemVisibleHeight = containerVisibleHeight - lastItem.top;
     const lastItemVisiblePercent = lastItemVisibleHeight / lastItem.height;
@@ -67,17 +67,20 @@ function compute(options) {
     .filter(i => !!i)
     .sort((a, b) => a.top - b.top);
   const determineLine = getDetermineLine(options, anchorsInfo);
-  if (anchorsInfo.some(i => i.top < determineLine)) {
+  let anchor = defaultAnchor;
+  if (anchorsInfo.some(i => i.top <= determineLine)) {
     const maxSection = anchorsInfo
       .filter(i => i.top < determineLine)
       .reduce(
         (prev, curr) => (curr.top > prev.top ? curr : prev),
         anchorsInfo[0]
       );
-    return (maxSection && maxSection.anchor) || defaultAnchor;
-  } else {
-    return defaultAnchor;
+    anchor = (maxSection && maxSection.anchor) || defaultAnchor;
   }
+  return {
+    anchor,
+    determineLine
+  };
 }
 
 export default compute;

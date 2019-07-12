@@ -66,14 +66,22 @@ export function initOptions(options) {
 
 export function makeHandler(options) {
   let lastAnchor = options.defaultAnchor;
-  return debounce(function(e) {
-    e.stopPropagation();
-    let anchor = compute(options);
-    if (anchor !== lastAnchor) {
-      lastAnchor = anchor;
-      options.callback(anchor);
+  return function(e) {
+    e && e.stopPropagation && e.stopPropagation();
+    let computeResult = compute(options);
+    if (computeResult.anchor !== lastAnchor) {
+      lastAnchor = computeResult.anchor;
+      options.callback(computeResult.anchor);
     }
-  }, options.wait);
+    return {
+      lastAnchor,
+      ...computeResult
+    };
+  };
+}
+
+export function makeHandlerDebounced(handler, options) {
+  return debounce(handler, options.wait);
 }
 
 export function listen(options, handler) {
@@ -86,10 +94,12 @@ export function listen(options, handler) {
     eventName = "scroll";
   }
   options.element.addEventListener(eventName, handler);
+  options.element.addEventListener("resize", handler);
 }
 
 export function dispose(options, handler) {
   options.element.removeEventListener("scroll", handler);
   options.element.removeEventListener("wheel", handler);
   options.element.removeEventListener("touchmove", handler);
+  options.element.removeEventListener("resize", handler);
 }
