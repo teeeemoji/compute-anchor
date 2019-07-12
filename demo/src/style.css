@@ -18,7 +18,6 @@ h1, h2, h3, h4, p {
 }
 
 .compute-anchor-demo-information .title {
-    height: 120px;
     line-height: 120px;
     font-size: 70px;
 }
@@ -34,14 +33,27 @@ h1, h2, h3, h4, p {
 
 .examples-ctn {
     padding: 20px;
-    display: flex;
-    justify-content: space-between;
+}
+.example-item{
+    margin-bottom: 50px;
 }
 
-.example-item {
-    display: inline-block;
-    width: 30%;
-    vertical-align: top;
+@media (min-width: 320px)and(max-width: 720px) {
+    .example-item {
+        width: 100%;
+        margin-bottom: 30px;
+    }
+}
+
+@media (min-width: 700px) {
+    .examples-ctn {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .example-item {
+        width: 30%;
+    }
 }
 
 .fixed-top {
