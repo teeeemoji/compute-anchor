@@ -24,4 +24,4 @@ deploy:
   github_token: $GITHUB_TOKEN
   keep_history: false
   on:
-    branch: gh-pages
+    branch: master
