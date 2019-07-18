@@ -1,0 +1,89 @@
+{
+  "name": "compute-anchor",
+  "version": "1.0.2",
+  "description": "compute anchor in element",
+  "main": "index.js",
+  "scripts": {
+    "doc": "documentation --github --markdown-toc=false readme src/compute-anchor.js -a public -s \"API\"",
+    "test": "jest",
+    "prepare": "npm run build",
+    "test-ci": "npm run clean && npm test",
+    "dev:demo": "rollup -c rollup.demo.config.js -w",
+    "build": "rollup -c",
+    "build:demo": "rollup -c rollup.demo.config.js",
+    "cs": "prettier --check --write ./**/*.js",
+    "precommit": "lint-staged",
+    "commit": "./node_modules/.bin/git-cz",
+    "commitmsg": "commitlint -e $GIT_PARAMS",
+    "version": "npm run changelog",
+    "changelog": "./node_modules/.bin/conventional-changelog -p angular -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/teeeemoji/compute-anchor.git"
+  },
+  "keywords": [
+    "anchor",
+    "window.scrollTop"
+  ],
+  "author": "teeeemoji <teeeemoji@163.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/teeeemoji/compute-anchor/issues"
+  },
+  "homepage": "https://github.com/teeeemoji/compute-anchor#readme",
+  "dependencies": {
+    "@babel/plugin-transform-parameters": "^7.4.4",
+    "lodash": "^4.17.11"
+  },
+  "lint-staged": {
+    "*.js": [
+      "prettier --check --write",
+      "git add "
+    ]
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
+  },
+  "jest": {
+    "testMatch": [
+      "**/__test{s,}__/*.(spec|test).js"
+    ]
+  },
+  "module": "index.js",
+  "browser": "dist/index.umd.js",
+  "devDependencies": {
+    "@babel/core": "^7.5.0",
+    "@babel/plugin-proposal-class-properties": "^7.5.0",
+    "@babel/preset-env": "^7.5.0",
+    "@babel/preset-react": "^7.0.0",
+    "@commitlint/cli": "^8.0.0",
+    "@commitlint/config-conventional": "^8.0.0",
+    "babel-jest": "^24.8.0",
+    "commitizen": "^3.1.1",
+    "conventional-changelog-cli": "^2.0.21",
+    "documentation": "^12.0.2",
+    "husky": "^2.4.1",
+    "jest": "^24.8.0",
+    "lint-staged": "^8.2.1",
+    "prettier": "^1.18.2",
+    "pretty-quick": "^1.11.1",
+    "prop-types": "^15.7.2",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "rollup": "^1.16.6",
+    "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-commonjs": "^10.0.1",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-postcss": "^2.0.3",
+    "rollup-plugin-progress": "^1.1.1",
+    "rollup-plugin-replace": "^2.2.0"
+  }
+}
