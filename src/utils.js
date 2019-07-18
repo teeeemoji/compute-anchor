@@ -46,6 +46,7 @@ const EMPTY_OPTIONS = {
   element: null,
   handler: null,
   defaultAnchor: "",
+  events: [],
   anchors: [],
   callback: anchor => {},
   offset: [0, 0], // [top, bottom]
@@ -53,10 +54,19 @@ const EMPTY_OPTIONS = {
 };
 
 export function initOptions(options) {
+  let eventName;
+  if (isMobile) {
+    eventName = "touchmove";
+  } else if (options.element !== window) {
+    eventName = "wheel";
+  } else {
+    eventName = "scroll";
+  }
   return {
     ...EMPTY_OPTIONS,
     ...options,
     element: getElement(options.element),
+    events: options.events.length ? options.events : ["resize", eventName],
     offset: {
       top: (options.offset && options.offset.top) || 0,
       bottom: (options.offset && options.offset.bottom) || 0
@@ -77,19 +87,13 @@ export function makeHandler(options) {
 }
 
 export function listen(options, handler) {
-  let eventName;
-  if (isMobile) {
-    eventName = "touchmove";
-  } else if (options.element !== window) {
-    eventName = "wheel";
-  } else {
-    eventName = "scroll";
-  }
-  options.element.addEventListener(eventName, handler);
+  options.events.forEach(eventName =>
+    options.element.addEventListener(eventName, handler)
+  );
 }
 
 export function dispose(options, handler) {
-  options.element.removeEventListener("scroll", handler);
-  options.element.removeEventListener("wheel", handler);
-  options.element.removeEventListener("touchmove", handler);
+  options.events.forEach(eventName =>
+    options.element.removeEventListener(eventName, handler)
+  );
 }
