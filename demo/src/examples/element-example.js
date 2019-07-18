@@ -21,7 +21,7 @@ export default class ElementExample extends React.Component {
   }
 
   componentWillUnmount() {
-    this.state.dispose();
+    this.state.dispose.dispose();
   }
 
   register() {
@@ -51,7 +51,7 @@ export default class ElementExample extends React.Component {
               className="dispose-btn"
               onClick={() => {
                 if (this.state.dispose) {
-                  this.state.dispose();
+                  this.state.dispose.dispose();
                   this.setState({
                     dispose: null
                   });

@@ -1,4 +1,10 @@
-import { initOptions, makeHandler, listen, dispose } from "./utils";
+import {
+  initOptions,
+  makeHandler,
+  makeDebounceHandler,
+  listen,
+  dispose
+} from "./utils";
 
 /**
  * @public
@@ -21,14 +27,20 @@ import { initOptions, makeHandler, listen, dispose } from "./utils";
  *    when your input element has some fixed top or fixed bottom children, options.offset if useful
  * @param [options.wait=20] {Number}
  *    wait is time in MS for eventListener wait time
- * @returns {Function} - the function to remove all eventListener on element
+ * @returns computeObj {Function}
+ *  - [computeObj.compute] {Function} - compute handler, you can invoke this funcion and get the compute result
+ *  - [computeObj.dispose] {Function} - the function to remove all eventListener on element
  */
 function computeAnchor(options) {
   let opt = initOptions(options);
   let scrollHandler = makeHandler(opt);
-  listen(opt, scrollHandler);
-  return function() {
-    dispose(opt, scrollHandler);
+  let debounceHandler = makeDebounceHandler(opt, scrollHandler);
+  listen(opt, debounceHandler);
+  return {
+    compute: scrollHandler,
+    dispose: function() {
+      dispose(opt, debounceHandler);
+    }
   };
 }
 

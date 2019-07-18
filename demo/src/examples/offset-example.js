@@ -50,7 +50,7 @@ export default class OffsetExample extends React.Component {
               className="dispose-btn"
               onClick={() => {
                 if (this.state.dispose) {
-                  this.state.dispose();
+                  this.state.dispose.dispose();
                   this.setState({
                     dispose: null
                   });

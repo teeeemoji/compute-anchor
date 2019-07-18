@@ -55,9 +55,10 @@ const EMPTY_OPTIONS = {
 
 export function initOptions(options) {
   let eventName;
+  let element = getElement(options.element);
   if (isMobile) {
     eventName = "touchmove";
-  } else if (options.element !== window) {
+  } else if (element !== window) {
     eventName = "wheel";
   } else {
     eventName = "scroll";
@@ -65,8 +66,11 @@ export function initOptions(options) {
   return {
     ...EMPTY_OPTIONS,
     ...options,
-    element: getElement(options.element),
-    events: options.events.length ? options.events : ["resize", eventName],
+    element,
+    events:
+      options.events && options.events.length
+        ? options.events
+        : ["resize", eventName],
     offset: {
       top: (options.offset && options.offset.top) || 0,
       bottom: (options.offset && options.offset.bottom) || 0
@@ -76,17 +80,21 @@ export function initOptions(options) {
 
 export function makeHandler(options) {
   let lastAnchor = options.defaultAnchor;
-  return debounce(function(e) {
-    e.stopPropagation();
+  return function(e) {
     let anchor = compute(options);
     if (anchor !== lastAnchor) {
       lastAnchor = anchor;
       options.callback(anchor);
     }
-  }, options.wait);
+  };
+}
+
+export function makeDebounceHandler(options, handler) {
+  return debounce(handler, options.wait);
 }
 
 export function listen(options, handler) {
+  console.log("listen:", options.events);
   options.events.forEach(eventName =>
     options.element.addEventListener(eventName, handler)
   );
